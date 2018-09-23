@@ -1,78 +1,48 @@
 require 'socket'
+require 'digest/sha1'
+require './koala_socket'
+require './util'
 
 PORT = 3000
 
+begin
+  class Server
+    def initialize(port)
+      @server = TCPServer.open(port)
 
-class Server
-  def initialize(port)
-    @clients = Hash.new
-    @server = TCPServer.open(port)
+      listen
+    end
 
-
-    t = send
-    listen
-    t.join
-  end
-
-  private
+    private
 
 
-  def send
-    t = Thread.new do
+    def listen
+      @threads = []
 
-      puts 'sending...'
       loop do
-        message = input
-        broadcast 'Server', messsage
+        socket = Socket.new(@server.accept)
+          socket.handshake!
+          @threads << Thread.new do
+            loop do
+              begin
+                socket.proccess_input!
+              rescue RuntimeError => e
+                log "There was an error with the client: #{e.message}"
+                next
+              end
+            end
+          end 
       end
 
-    end
-  end
-
-
-  def listen
-    threads = []
-
-    loop do
-      client = @server.accept
-      threads << Thread.new do
-        puts 'listening...'
-        
-        client_name = client.gets.chomp.to_sym
-        if @clients[client_name] != nil
-          client.puts "Username already exists!"
-          client.kill
-        end
-        @clients[client_name] = client
-        
-        puts @clients
-        client.puts "Hey!"
-
-        while line = client.gets
-          puts "#{client_name}: #{line}"
-          broadcast client_name, line
-        end
+      threads.each do |t|
+        t.join
       end
     end
 
-    threads.each do |t|
-      t.join
-    end
   end
 
-
-  def broadcast client_name = '', message
-    @clients.each do |username, socket|
-      socket.puts "#{client_name}: #{message}" unless client_name == username
-    end
-  end
-  
-
-  def input
-    print '-> '
-    gets.chomp
-  end
-
+  server = Server.new(PORT)
+rescue Interrupt => e
+  log "\nShutting server down..."
+  exit
 end
-
-server = Server.new(PORT)
