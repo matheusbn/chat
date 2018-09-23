@@ -1,0 +1,10 @@
+.container {
+
+}
+
+.messages {
+  margin: 0 auto;
+  width: 600px;
+  height: 800px;
+  border: 1px solid black; 
+}
