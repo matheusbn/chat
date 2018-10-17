@@ -9,7 +9,7 @@ socket.onopen = function (event) {
 
 // Listen for messages
 socket.onmessage = function (event) {
-    console.log('Message from server ', event.data)
+    console.log('Message from server:', event.data)
 }
 
 

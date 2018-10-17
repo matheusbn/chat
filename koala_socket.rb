@@ -1,11 +1,11 @@
-require './util'
+require './event_emitter'
 
 class Socket
+  include EventEmitter
+
   def initialize socket
     @socket = socket
   end
-
-
 
   def handshake!
     http_request = ""
@@ -58,7 +58,18 @@ class Socket
 
     parsed_data = unmasked_data.pack('C*').force_encoding('utf-8')
     log "Converted to a string: #{parsed_data}"
-    STDOUT.puts parsed_data
+    parsed_data
+
+    emit(:message, parsed_data)
+  end
+
+  def write message
+    fin_and_opcode = 0b10000001
+    output = [fin_and_opcode, message.size, message]
+
+    @socket.write output.pack("CCA#{message.size}")
+    
+    log "Sending response: #{message}"
   end
 
   private

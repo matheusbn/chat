@@ -18,20 +18,33 @@ begin
 
     def listen
       @threads = []
+      @sockets = []
 
       loop do
         socket = Socket.new(@server.accept)
-          socket.handshake!
-          @threads << Thread.new do
-            loop do
-              begin
-                socket.proccess_input!
-              rescue RuntimeError => e
-                log "There was an error with the client: #{e.message}"
-                next
-              end
+
+
+        socket.on :message do |message|
+          puts message
+        end
+
+
+        @sockets << socket
+        socket.handshake!
+        @threads << Thread.new do
+          loop do
+            begin
+              socket.proccess_input!
+
+
+              socket.write "Loud and clear!"
+
+            rescue RuntimeError => e
+              log "There was an error with the client: #{e.message}"
+              next
             end
-          end 
+          end
+        end 
       end
 
       threads.each do |t|
@@ -39,9 +52,18 @@ begin
       end
     end
 
+    private
+
+    def broadcast message
+      @sockets.each do |socket|
+        socket.write message
+      end
+    end
+
   end
 
   server = Server.new(PORT)
+
 rescue Interrupt => e
   log "\nShutting server down..."
   exit
