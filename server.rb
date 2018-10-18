@@ -25,20 +25,16 @@ begin
 
 
         socket.on :message do |message|
-          puts message
+          broadcast message, socket
         end
 
 
         @sockets << socket
-        socket.handshake!
+        socket.handshake
         @threads << Thread.new do
           loop do
             begin
-              socket.proccess_input!
-
-
-              socket.write "Loud and clear!"
-
+              socket.proccess_input
             rescue RuntimeError => e
               log "There was an error with the client: #{e.message}"
               next
@@ -54,8 +50,10 @@ begin
 
     private
 
-    def broadcast message
+    def broadcast message, sender
+      puts @sockets.length
       @sockets.each do |socket|
+        next if socket == sender
         socket.write message
       end
     end

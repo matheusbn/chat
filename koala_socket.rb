@@ -7,7 +7,7 @@ class Socket
     @socket = socket
   end
 
-  def handshake!
+  def handshake
     http_request = ""
     while (line = @socket.gets) && (line != "\r\n")
       http_request += line
@@ -36,13 +36,13 @@ class Socket
 
   end
 
-  def proccess_input!
+  def proccess_input
     read_until_end_of_stream
 
-    check_requirements!
+    check_requirements
 
 
-    payload_size = get_payload_size!
+    payload_size = get_payload_size
     
     log "Payload size: #{ payload_size } bytes"
 
@@ -74,7 +74,7 @@ class Socket
 
   private
   
-  def check_requirements!
+  def check_requirements
     first_byte = @socket.getbyte
     @second_byte = @socket.getbyte
 
@@ -93,7 +93,7 @@ class Socket
     log "Requirements checked successfully."
   end
 
-  def get_payload_size!
+  def get_payload_size
     payload_size = @second_byte & 0b01111111
 
     raise "We only support payloads < 126 bytes in length" unless payload_size < 126
