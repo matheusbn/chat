@@ -10,6 +10,13 @@ socket.onopen = function (event) {
 // Listen for messages
 socket.onmessage = function (event) {
     console.log('Message from server:', event.data)
+    const messagesList = document.querySelector('.messages')
+
+    const message = document.createElement('li')
+    const messageContent = document.createTextNode(event.data)
+    message.appendChild(messageContent)
+
+    messagesList.appendChild(message)
 }
 
 
@@ -18,5 +25,4 @@ btnSend.onclick = () => {
     const input = document.querySelector('.message-input')
     const message = input.value
     socket.send(message)
-    console.log(message, message.length)
 }
