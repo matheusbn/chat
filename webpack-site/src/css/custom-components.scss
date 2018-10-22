@@ -1,0 +1,62 @@
+.wrapper {
+  max-width: 960px;
+
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 0 5px 0 #ccc,
+              -3px 0 5px 0 #ccc;
+
+  width: 80%;
+  height: 100vh;
+
+  margin: 0 auto;
+  padding: 10px 20px;
+
+  background-color: $background;
+}
+
+.message {
+  border: 1px solid $secondary;
+  border-radius: 6px;
+  border-bottom-left-radius: 0;
+
+  background-color: $secondary;
+
+  color: white;
+
+  padding: 2px 30px;
+  margin: 3px 0;
+}
+
+// utility classes
+
+.display-flex {
+  display: flex;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-space-between {
+  justify-content: space-between
+}
+
+.align-items-end {
+  align-items: end;
+}
+
+.align-items-center {
+  align-items: center;
+}
