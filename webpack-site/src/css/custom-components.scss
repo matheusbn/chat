@@ -1,5 +1,5 @@
 .wrapper {
-  max-width: 960px;
+  max-width: 96nonepx;
 
   margin: 0 auto;
   display: flex;
@@ -25,7 +25,6 @@
 .message {
   border: 1px solid $secondary;
   border-radius: 6px;
-  border-bottom-left-radius: 0;
 
   background-color: $secondary;
 
@@ -36,6 +35,8 @@
 }
 
 // utility classes
+
+// flex
 
 .display-flex {
   display: flex;
