@@ -2,10 +2,11 @@ import '../css/index.scss'
 
 addMessage('oi')
 
-const messageInput = document.querySelector('.messageInput')
-const sendBtn = messageInput.querySelector('button')
-sendBtn.onclick = () => {
-  const input =  messageInput.querySelector('input')
+const messageForm = document.querySelector('.message-form')
+
+messageForm.onsubmit = e => {
+  e.preventDefault()
+  const input =  messageForm.querySelector('input')
   const text = input.value
   input.value = ''
 
