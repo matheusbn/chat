@@ -9,7 +9,7 @@ sendBtn.onclick = () => {
   const text = input.value
   input.value = ''
 
-  addMessage(text)
+  if(text != '') addMessage(text)
 }
 
 
