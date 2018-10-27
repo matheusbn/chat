@@ -5,15 +5,17 @@
     <title>Chat</title>
   </head>
   <body>
-    <div class="container display-flex flex-direction-column justify-content-space-between align-items-center">
-      <div class="messages">
-        <div class="other-user-message align-self-flex-start">Oi</div>
-        <div class="other-user-message align-self-flex-start">Oi</div>
+    <div class="wrapper">
+      <div class="container d-flex flex-direction-column justify-content-space-between align-items-center">
+        <div class="messages">
+          <div class="other-user-message align-self-flex-start">Oi</div>
+          <div class="other-user-message align-self-flex-start">Oi</div>
+        </div>
+        <form class="message-form">
+          <input type="text" placeholder="Type your message here" autofocus>
+          <input type="submit" value="Send">
+        </form>
       </div>
-      <form class="message-form">
-        <input type="text" placeholder="Type your message here" autofocus>
-        <input type="submit" value="Send">
-      </form>
     </div>
   </body>
 </html>
