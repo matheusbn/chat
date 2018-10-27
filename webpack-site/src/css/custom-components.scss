@@ -10,16 +10,17 @@
 .container {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 12px solid $secondary;
   border-radius: 8px;
-  box-shadow: 3px 0 8px 0 #ccc,
-              -3px 0 8px 0 #ccc;
+  box-shadow: 3px 3px 8px 0 #ccc,
+              -3px -3px 8px 0 #ccc;
 
   width: 100%;
   max-width: 960px;
   height: 95vh;
 
-  // margin: 0 auto;
-  padding: 10px 20px;
+  margin: 0 auto;
+  padding: 20px;
 
   background-color: $background;
 }
