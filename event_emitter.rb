@@ -1,4 +1,5 @@
 module EventEmitter
+  TEST='auheuaheuaehuaehuaehuahuheauaehuhaeueahueahuaehuaehuaehaeuhaeuheauheauheauheauhaeuhaeuheauhaeuaehuaehueahuaehueahuaehuaehueahuhea'
   def on(event, &block)
     @events ||= {}
     @events[event.to_sym] ||= []
